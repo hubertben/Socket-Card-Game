@@ -23,13 +23,9 @@ class ClientHandler:
 
 
 def sendAll(data):
-    for client in clients:
-        client.send(data)
-
-def closeAll():
     for c in clients:
-        c.send("kill")
-        c.client.close()
+        c.send(data)
+
 
 def checkClients(addr):
     for c in clients:
@@ -53,17 +49,10 @@ def addClient(client, address, ID):
 def command(c, message):
 
     message = message[1:].split(" ")
-    print("From " + str(c) + ": " + str(message))
-
-
-    if(message[0] == "sendall"):
-        sendAll(message[1])
-
-    if(message[0] == "closeall"):
-        closeAll()
+    print("From " + str(c) + ": ")
+    print(message)
 
     if(message[0] == "kill"):
-        closeAll()
         exit()
 
    
