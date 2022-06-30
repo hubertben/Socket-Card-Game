@@ -8,6 +8,8 @@ host = None
 label = None
 server_id = None
 
+s = None
+
 def send_message(m):
     
     if m == "quit":
@@ -16,13 +18,11 @@ def send_message(m):
     if m == "":
         return
 
-    s = socket.socket()
-    s.connect((host, port))
     s.send(m.encode())
-
     r = s.recv(1024).decode()
+    
     label.config(text=r)
-    s.close()
+    
 
         
 def getServerID(host, port):
@@ -54,6 +54,9 @@ if __name__ == "__main__":
     #print("Server listening @ {}:{}".format(host, port))
     #getServerID(host, port)
 
+    s = socket.socket()
+    s.connect((host, port))
+
 
     kinter = tk.Tk()
     kinter.title("Client")
@@ -74,5 +77,6 @@ if __name__ == "__main__":
 
 
     kinter.mainloop()
+    s.close()
 
     

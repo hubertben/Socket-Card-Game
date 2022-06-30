@@ -3,6 +3,8 @@ import socket
 clients = []
 from threading import Thread
 
+import random
+
 
 
 class ClientHandler:
@@ -80,10 +82,11 @@ if __name__ == "__main__":
 
         if(not m):
             c.close()
+            break
 
         print("Message from client: " + str(m))
 
-        c.send(str("761").encode())
+        c.send(str(random.random()).encode())
 
         # if m[0] == "/":
         #     command(checkClients(addr), m)
