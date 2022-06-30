@@ -3,7 +3,7 @@ import socket
 clients = []
 
 #c.sendall(str(client_id).encode())
-client_id = 0
+
 
 class ClientHandler:
 
@@ -40,10 +40,10 @@ def checkClients(c):
 
 
 def addClient(client, address, ID):
-    client_id += 1
     c = ClientHandler(client, address, ID)
     clients.append(c)
-    c.send(["Client ID", str(client_id)])
+    i = "$" + str(ID)
+    c.send(str(i))
     c.has_id = True
     print(c)
 
@@ -60,6 +60,7 @@ if __name__ == "__main__":
     s.bind((host, port))  
     s.listen(5)  
     m = ""
+    client_id = 0
 
     print("Server {} listening @ {}:{}".format(s, host, port))
 
@@ -72,6 +73,7 @@ if __name__ == "__main__":
         
         if(not checkClients(c)):
             addClient(c, addr, client_id)
+            client_id += 1
             print("Client Added")
 
         print("Message from client: " + str(m))

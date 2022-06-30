@@ -26,7 +26,7 @@ if __name__ == "__main__":
         print("Response:\t", str(r))
 
         
-        if(r[0] == "Client ID"):
+        if(r[0] == "$"):
             server_id = int(r[1])
             print("Server ID: " + str(server_id))
 
