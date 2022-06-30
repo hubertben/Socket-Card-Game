@@ -51,9 +51,6 @@ def addClient(client, address, ID):
 if __name__ == "__main__":
     
     port = int(input("Enter port number: "))
-
-    if(port < 1024 or port > 65535):
-        port = 19487
    
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     host = socket.gethostname()
