@@ -78,13 +78,13 @@ if __name__ == "__main__":
                 client_id += 1
                 print("Client Added")
             else:
-                check.client.send("$" + str(check.ID))
+                c.send(("$" + str(check.ID)).encode())
                 print("Client already exists")
         
         
         else:
 
-            c.send("Message from server: Received message from client: " + str(m))
+            c.send(("Message from server: Received message from client: " + str(m)).encode())
             c.close()
 
             if(str(m) == "quit"): 
