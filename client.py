@@ -5,11 +5,40 @@ import socket
 port = None
 host = None
 
+label = None
+server_id = None
+
+def send_message(m):
+
+    if m == "":
+        return
+
+    s = socket.socket()
+    s.connect((host, port))
+    s.send(m.encode())
+    r = s.recv(1024).decode()
+
+    label.config(text=r)
+    
+    s.close()
+
+        
+def getServerID():
+    s = socket.socket()
+    s.connect((host, port))
+    m = "server_id"
+    s.send(m.encode())
+    r = s.recv(1024).decode()
+    server_id = int(r[1])
+    print("Server ID: " + str(server_id))
+    s.close()
+    
+
 if __name__ == "__main__":
 
     kinter = tk.Tk()
     kinter.title("Client")
-    kinter.geometry("300x300")
+    kinter.geometry("800x300")
     kinter.resizable(False, False)
     kinter.configure(background="gray")
 
@@ -21,8 +50,8 @@ if __name__ == "__main__":
     button = tk.Button(kinter, text="Send", width=10, command=lambda: send_message(text_input.get()))
     button.place(x=50, y=100)
 
-    # add label to the window
-    
+    label = tk.Label(kinter, text="", width=50)
+    label.place(x=50, y=200)
 
 
     port = int(input("Enter port number: "))
@@ -35,26 +64,14 @@ if __name__ == "__main__":
     host = "elnux" + str(num) + ".cs.umass.edu"
     server_id = -1
 
+    getServerID()
+
+    kinter.mainloop()
+
     
 
 
-def send_message(m):
-    s = socket.socket()
-    s.connect((host, port))
-    s.send(m.encode())
-    r = s.recv(1024).decode()
 
-    label = tk.Label(kinter, text=r)
-    label.place(x=50, y=200)
-
-
-    if(r[0] == "$"):
-        server_id = int(r[1])
-        print("Server ID: " + str(server_id))
-    
-    s.close()
-
-        
 
 
     

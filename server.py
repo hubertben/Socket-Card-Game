@@ -35,7 +35,7 @@ def closeAll():
 def checkClients(addr):
     for client in clients:
         if(client.address[0] == addr[0]):
-            return True
+            return client
     return False
 
 
@@ -67,14 +67,18 @@ if __name__ == "__main__":
     while True:
         
         c, addr = s.accept()  
-        print("Connection from " + str(c) + ":" + str(addr) + " has been established.")
-
         m = c.recv(1024).decode()
         
-        if(not checkClients(addr)):
+        check = checkClients(addr)
+        if(not check):
+            print("First Time Connection from " + str(c) + ":" + str(addr) + " has been established.")
             addClient(c, addr, client_id)
             client_id += 1
             print("Client Added")
+        else:
+            c = check
+            i = "$" + str(c.ID)
+            c.send(str(i))
 
         print("Message from client: " + str(m))
 
