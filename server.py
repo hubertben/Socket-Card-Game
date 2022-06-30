@@ -13,15 +13,16 @@ if __name__ == "__main__":
     print("Server {} listening @ {}:{}".format(s, host, port))
 
     while True:
+        
         c, addr = s.accept()  
         print("Connection from " + str(addr) + " has been established.")
         m = c.recv(1024).decode() 
         
         print("Request:\t", str(m))
 
-        s = "Testing"
+        string = "Testing"
 
-        c.send(s.encode())
+        c.send(string.encode())
         
         c.close() 
         
