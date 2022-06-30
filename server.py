@@ -82,7 +82,9 @@ if __name__ == "__main__":
 
         if(not m):
             c.close()
-            break
+            clients.remove(checkClients(addr))
+            print("Client " + str(addr) + " disconnected")
+            continue
 
         print("Message from client: " + str(m))
 

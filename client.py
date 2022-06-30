@@ -49,7 +49,7 @@ if __name__ == "__main__":
     s.connect((host, port))
 
     print("Server listening @ {}:{}".format(host, port))
-    getServerID(host, port)
+    getServerID()
 
 
     kinter = tk.Tk()
