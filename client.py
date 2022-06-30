@@ -9,6 +9,9 @@ label = None
 server_id = None
 
 def send_message(m):
+    
+    if m == "quit":
+        exit() 
 
     if m == "":
         return
@@ -16,9 +19,6 @@ def send_message(m):
     s = socket.socket()
     s.connect((host, port))
     s.send(m.encode())
-
-    if m == "quit":
-        exit() 
 
     r = s.recv(1024).decode()
     label.config(text=r)

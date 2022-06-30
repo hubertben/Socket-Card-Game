@@ -54,7 +54,7 @@ def addClient(client, address, ID):
 def command(c, message):
 
     message = message[1:].split(" ")
-    print("From " + c + ": " + message)
+    print("From " + str(c) + ": " + str(message))
 
 
     if(message[0] == "sendall"):
