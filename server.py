@@ -52,7 +52,7 @@ if __name__ == "__main__":
         print("Host", clients[0].client)
         print("Request:\t", str(m))
         
-        if(m == "quit" and c == clients[0].client):
+        if(str(m) == "quit" and c == clients[0].client):
             break;
 
         if(str(m) == "get"):

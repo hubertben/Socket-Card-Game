@@ -11,9 +11,14 @@ if __name__ == "__main__":
     s = socket.socket()
     s.connect((host, port))
 
-    message = "Testing Request"
+    message = "get"
     s.sendall(message.encode()) 
-
     data = s.recv(1024).decode()
+
+
+    message = "quit"
+    s.sendall(message.encode()) 
+    data = s.recv(1024).decode()
+
     print(data)
     s.close()
