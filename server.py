@@ -1,6 +1,7 @@
 
 import socket
 clients = []
+from threading import Thread
 
 #c.sendall(str(client_id).encode())
 
@@ -67,10 +68,13 @@ if __name__ == "__main__":
         
         c, addr = s.accept()  
         m = c.recv(1024).decode()
+
+        print("Message from client: " + str(m))
         
         
         if(m == "server_id"):
             check = checkClients(addr)
+            print("Check: " + str(check))
             if(check == False):
                 print("First Time Connection from " + str(addr[0]) + " has been established.")
                 addClient(c, addr, client_id)
@@ -81,8 +85,6 @@ if __name__ == "__main__":
                 check.close()
 
         else:
-
-            print("Message from client: " + str(m))
 
             c.send("Message from server: Received message from client: " + str(m))
             c.close()
