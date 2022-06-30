@@ -22,6 +22,10 @@ def sendAll(data):
     for client in clients:
         client.send(data)
 
+def closeAll():
+    for client in clients:
+        client.close()
+
 
 if __name__ == "__main__":
     
@@ -52,7 +56,8 @@ if __name__ == "__main__":
         print("Host", str(clients[0].client), ": Address", str(clients[0].address))
         print("Request:\t", str(m))
         
-        if(str(m) == "quit" and str(addr) == str(clients[0].address)):
+        if(str(m) == "quit" and addr[0] == clients[0].address[0]):
+            closeAll();
             break;
 
         if(str(m) == "get"):
