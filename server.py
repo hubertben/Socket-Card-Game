@@ -62,6 +62,8 @@ if __name__ == "__main__":
 
         if(str(m) == "get"):
             clients[0].send(g)
+            print("Response:\t", str(g))
+            clients[0].close()
             
 
         
