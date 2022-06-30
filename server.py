@@ -50,6 +50,24 @@ def addClient(client, address, ID):
 
 
 
+
+def command(c, message):
+
+    message = message[1:].split(" ")
+    print("From " + c + ": " + message)
+
+
+    if(message[0] == "sendall"):
+        sendAll(message[1])
+
+    if(message[0] == "closeall"):
+        closeAll()
+
+    if(message[0] == "exit"):
+        exit()
+
+   
+
 if __name__ == "__main__":
     
     port = int(input("Enter port number: "))
@@ -69,9 +87,11 @@ if __name__ == "__main__":
         m = c.recv(1024).decode()
 
         print("Message from client: " + str(m))
-        
-        
-        if(m == "server_id"):
+
+        if m[0] == "/":
+            command(checkClients(addr), m)
+
+        elif(m == "server_id"):
             check = checkClients(addr)
             print("Check: " + str(check))
             if(check == False):

@@ -26,22 +26,17 @@ def send_message(m):
 
         
 def getServerID(host, port):
-    print("Getting Server ID")
     
     s = socket.socket()
-    print("Connecting to server")
+    print("Connecting to server...")
 
     s.connect((host, port))
-    print("Connected to server")
+    print("Connected to server!")
 
-    m = "server_id"
+    post = "server_id"
     
-    print("Sending")
-    s.send(m.encode())
-
+    s.send(post.encode())
     r = s.recv(1024).decode()
-
-    print("Received: " + r)
     server_id = int(r[1:])
 
     print("Server ID: " + str(server_id))
@@ -57,7 +52,6 @@ if __name__ == "__main__":
     server_id = -1
 
     print("Server listening @ {}:{}".format(host, port))
-    print("Sending request for \"server_id\"")
     getServerID(host, port)
 
 
