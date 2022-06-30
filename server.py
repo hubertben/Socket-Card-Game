@@ -14,9 +14,6 @@ class ClientHandler:
 
         self.has_id = False
 
-    def send(self, data):
-        self.client.send(str(data).encode())
-
     def __str__(self):
         return "Client: " + str(self.ID) + " " + str(self.address)
 
@@ -24,7 +21,7 @@ class ClientHandler:
 def sendAll(data):
     for c in clients:
         c.client.send(data.encode())
-
+        c.client.close()
 
 
 def checkClients(addr):
