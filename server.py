@@ -69,16 +69,14 @@ if __name__ == "__main__":
         c, addr = s.accept()  
         m = c.recv(1024).decode()
         
-        check = checkClients(addr)
-        if(not check):
+        
+        if(m == "server_id"):
             print("First Time Connection from " + str(c) + ":" + str(addr) + " has been established.")
-            addClient(c, addr, client_id)
-            client_id += 1
-            print("Client Added")
-        else:
-            c = check
-            i = "$" + str(c.ID)
-            c.send(str(i))
+            check = checkClients(addr)
+            if(check == False):
+                addClient(c, addr, client_id)
+                client_id += 1
+                print("Client Added")
 
         print("Message from client: " + str(m))
 
