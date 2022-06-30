@@ -51,11 +51,12 @@ def command(c, message):
     print("From " + str(c) + ": ")
     print(message)
 
-    if(message[0] == "kill"):
+    if(str(message[0]) == "kill"):
         exit()
 
-    if(message[0] == "sendall"):
-        sendAll(message[1])
+    if(str(message[0]) == "sendall"):
+        print("Sending to all: " + str(message[1]))
+        sendAll(str(message[1]))
         return
 
    
