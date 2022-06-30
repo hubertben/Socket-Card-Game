@@ -45,7 +45,6 @@ def addClient(client, address, ID):
     i = "$" + str(ID)
     c.send(str(i))
     c.has_id = True
-    print(c)
 
 
 if __name__ == "__main__":
@@ -79,10 +78,10 @@ if __name__ == "__main__":
                 print("Client Added")
             else:
                 check.send("Request for \"server_id\" denied.")
-                c.close()
+                check.close()
 
         else:
-            
+
             print("Message from client: " + str(m))
 
             c.send("Message from server: Received message from client: " + str(m))
