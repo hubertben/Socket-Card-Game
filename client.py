@@ -3,7 +3,12 @@ import socket
 
 if __name__ == "__main__":
 
-    port = 19487 #int(input("Enter port number: ")) 
+    port = int(input("Enter port number: "))
+
+    if(port < 1024 or port > 65535):
+        port = 19487
+
+        
     num = int(input("Enter host number: "))
 
     host = "elnux" + str(num) + ".cs.umass.edu"
