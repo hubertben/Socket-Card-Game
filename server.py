@@ -23,7 +23,8 @@ class ClientHandler:
 
 def sendAll(data):
     for c in clients:
-        c.send(data)
+        c.client.send(data.encode())
+
 
 
 def checkClients(addr):
