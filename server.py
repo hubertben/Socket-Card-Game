@@ -85,7 +85,7 @@ if __name__ == "__main__":
             print("Client " + str(addr) + " disconnected")
             break
 
-        print("Message from client: " + str(m))
+        print("Message from Client " + str(addr) + ": " + str(m))
 
 
         if m[0] == "/":
@@ -100,6 +100,8 @@ if __name__ == "__main__":
                 addClient(c, addr, client_id)
                 client_id += 1
                 print("Client Added")
+                print(clients)
+                
             else:
                 m = ("$" + str(check.ID)).encode()  
                 print("Sending: " + str(m))
