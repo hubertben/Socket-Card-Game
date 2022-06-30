@@ -38,33 +38,29 @@ if __name__ == "__main__":
 
     print("Server {} listening @ {}:{}".format(s, host, port))
 
-    while True:
+    while str(m) != "quit":
         
         c, addr = s.accept()  
+        print("Connection from " + str(c) + ":" + str(addr) + " has been established.")
 
-        client_id = len(clients) + 1
-        clients.append(ClientHandler(c, addr, client_id))
+        # client_id = len(clients) + 1
+        # clients.append(ClientHandler(c, addr, client_id))
 
         m = c.recv(1024).decode() 
 
         g = {
-            "host" : clients[0].address,
-            "host_id" : clients[0].ID,
+            "host" : c.address,
+            "host_id" : c.ID,
         }
 
-        print("Connection from " + str(c) + ":" + str(addr) + " has been established.")
-        print("Host", str(clients[0].client), ": Address", str(clients[0].address))
         print("Request:\t", str(m))
-        
-        if(str(m) == "quit" and addr[0] == clients[0].address[0]):
-            closeAll()
-            break
 
         if(str(m) == "get"):
-            clients[0].send(g)
+            c.send(g)
             print("Response:\t", str(g))
             continue
             
 
+    sendAll("quit")
         
 

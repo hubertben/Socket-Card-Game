@@ -16,11 +16,11 @@ if __name__ == "__main__":
         m = input("Enter message: ")
 
         s.send(m.encode())
-        
-        if(m == "quit"):
-            break
-        
+
         r = s.recv(1024).decode()
         print("Response:\t", str(r))
+
+        if(str(r) == "quit"):
+            break
 
     s.close()
