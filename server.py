@@ -48,8 +48,8 @@ if __name__ == "__main__":
             "host_id" : clients[0].ID,
         }
 
-        print("Connection from " + str(addr) + " has been established.")
-        print("Host", clients[0].client)
+        print("Connection from " + str(c) + ":" + str(addr) + " has been established.")
+        print("Host", str(clients[0].client), ": Address", str(clients[0].address))
         print("Request:\t", str(m))
         
         if(str(m) == "quit" and c == clients[0].client):

@@ -11,14 +11,14 @@ if __name__ == "__main__":
     s = socket.socket()
     s.connect((host, port))
 
-    message = "get"
-    s.sendall(message.encode()) 
-    data = s.recv(1024).decode()
+    while True:
+        m = input("Enter message: ")
+        s.send(m.encode())
+        
+        if(m == "quit"):
+            break
+        
+        r = s.recv(1024).decode()
+        print("Response:\t", str(r))
 
-
-    message = "quit"
-    s.sendall(message.encode()) 
-    data = s.recv(1024).decode()
-
-    print(data)
     s.close()
