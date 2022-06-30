@@ -9,10 +9,13 @@ if __name__ == "__main__":
     host = "elnux" + str(num) + ".cs.umass.edu"
 
     s = socket.socket()
-    s.connect((host, port))
+    
 
     while True:
+        
         m = input("Enter message: ")
+
+        s.connect((host, port))
         s.send(m.encode())
         
         if(m == "quit"):
@@ -21,4 +24,4 @@ if __name__ == "__main__":
         r = s.recv(1024).decode()
         print("Response:\t", str(r))
 
-    s.close()
+        s.close()
