@@ -78,7 +78,7 @@ if __name__ == "__main__":
                 client_id += 1
                 print("Client Added")
             else:
-                check.send("$" + str(check.ID))
+                check.client.send("$" + str(check.ID))
                 print("Client already exists")
         
         
