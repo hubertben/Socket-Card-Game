@@ -25,13 +25,7 @@ def send_message(m):
     
 
         
-def getServerID(host, port):
-    
-    s = socket.socket()
-    print("Connecting to server...")
-
-    s.connect((host, port))
-    print("Connected to server!")
+def getServerID():
 
     post = "server_id"
     
@@ -40,7 +34,7 @@ def getServerID(host, port):
     server_id = int(r[1:])
 
     print("Server ID: " + str(server_id))
-    s.close()
+
     
 
 if __name__ == "__main__":
@@ -51,11 +45,11 @@ if __name__ == "__main__":
     host = "elnux" + str(num) + ".cs.umass.edu"
     server_id = -1
 
-    #print("Server listening @ {}:{}".format(host, port))
-    #getServerID(host, port)
-
     s = socket.socket()
     s.connect((host, port))
+
+    print("Server listening @ {}:{}".format(host, port))
+    getServerID(host, port)
 
 
     kinter = tk.Tk()
