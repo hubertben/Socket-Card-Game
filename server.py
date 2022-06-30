@@ -34,7 +34,7 @@ def closeAll():
 
 def checkClients(addr):
     for client in clients:
-        if(client.address == addr):
+        if(client.address[0] == addr[0]):
             return True
     return False
 
