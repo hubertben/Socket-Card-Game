@@ -20,7 +20,7 @@ if __name__ == "__main__":
         r = s.recv(1024).decode()
         print("Response:\t", str(r))
 
-        if(str(r) == "quit"):
+        if(str(m) == "quit"):
             s.close()
             break
 

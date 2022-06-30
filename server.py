@@ -14,8 +14,7 @@ class ClientHandler:
     def send(self, data):
         self.client.send(str(data).encode())
 
-    def recv(self):
-        return self.client.recv(1024).decode()
+
 
     def close(self):
         self.client.close()
@@ -50,26 +49,15 @@ if __name__ == "__main__":
         client_id = len(clients) + 1
         clients.append(ClientHandler(c, addr, client_id))
 
-        messages = []
+        m = c.recv(1024).decode()
+        print("Message from client: " + str(m))
 
-        for client in clients:
-            print("Client {}: {}".format(client.ID, client.recv()))
-            messages.append(client.recv())
-        
-        if(len(messages) > 0):
-            sendAll(messages[0])
-            if(messages[0] == "quit"):
-                closeAll()
-                break
-            messages.pop(0)
-
-        c.close()
-        print("Connection from " + str(c) + ":" + str(addr) + " has been closed.")
-        clients.remove(c)
-        print("Client {} has been removed from the list.".format(c))
-        print("Clients in the list: {}".format(clients))
-        print("\n")
+        if(str(m) == "quit"):
+            c.close()
+            break
 
     s.close()
-    print("Server {} has been closed.".format(s))
-    print("Clients in the list: {}".format(clients))
+
+        
+       
+            
