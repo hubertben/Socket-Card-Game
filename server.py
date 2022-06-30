@@ -21,7 +21,6 @@ class ClientHandler:
 def sendAll(data):
     for c in clients:
         c.client.send(data.encode())
-        c.client.close()
 
 
 def checkClients(addr):
@@ -70,18 +69,23 @@ if __name__ == "__main__":
     m = ""
     client_id = 0
 
+    c, addr = s.accept() 
+
     print("Server listening @ {}:{}".format(host, port))
 
     while True:
         
-        c, addr = s.accept()  
+         
         m = c.recv(1024).decode()
+
+        if(not m):
+            c.close()
 
         print("Message from client: " + str(m))
 
         if m[0] == "/":
             command(checkClients(addr), m)
-            c.close()
+            
 
         elif(m == "server_id"):
             check = checkClients(addr)
@@ -95,12 +99,12 @@ if __name__ == "__main__":
                 m = ("$" + str(check.ID)).encode()  
                 print("Sending: " + str(m))
                 c.send(m)
-                c.close()
+                
 
         else:
 
             c.send(("Message from server: Received message from client: " + str(m)).encode())
-            c.close()
+            
 
             if(str(m) == "quit"): 
                 break
