@@ -44,8 +44,10 @@ def addClient(client, address, ID):
     c = ClientHandler(client, address, ID)
     clients.append(c)
     i = "$" + str(ID)
-    c.send(str(i))
+    client.send(str(i))
     c.has_id = True
+    print("Client " + str(ID) + " connected")
+
 
 
 if __name__ == "__main__":
@@ -78,7 +80,7 @@ if __name__ == "__main__":
                 client_id += 1
                 print("Client Added")
             else:
-                m = ("$1" + str(check.ID)).encode()  
+                m = ("$" + str(check.ID)).encode()  
                 print("Sending: " + str(m))
                 c.send(m)
                 c.close()
