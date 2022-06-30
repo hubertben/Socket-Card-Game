@@ -81,9 +81,10 @@ if __name__ == "__main__":
                 client_id += 1
                 print("Client Added")
             else:
-                check.send("Request for \"server_id\" denied.")
-                check.close()
-
+                check.send("$" + str(check.ID))
+                print("Client already exists")
+        
+        
         else:
 
             c.send("Message from server: Received message from client: " + str(m))
