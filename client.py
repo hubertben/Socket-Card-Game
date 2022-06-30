@@ -6,7 +6,7 @@ if __name__ == "__main__":
     port = int(input("Enter port number: ")) 
     num = int(input("Enter host number: "))
 
-    host = "elnux" + num + ".cs.umass.edu"
+    host = "elnux" + str(num) + ".cs.umass.edu"
 
     s = socket.socket()
     s.connect((host, port))

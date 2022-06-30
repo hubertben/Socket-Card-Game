@@ -10,13 +10,13 @@ if __name__ == "__main__":
     s.bind((host, port))  
     s.listen(5)  
     print("Server listening @ {}:{}".format(host, port))
-    
+
     while True:
         c, addr = s.accept()  
-        print("Connection from " + addr + " has been established.")
+        print("Connection from " + str(addr) + " has been established.")
         m = c.recv(1024).decode() 
         
-        print("Request:\t", m)
+        print("Request:\t", str(m))
 
         s = "Testing"
 
