@@ -41,15 +41,19 @@ if __name__ == "__main__":
         client_id = len(clients) + 1
         clients.append(ClientHandler(c, addr, client_id))
 
-        print("Connection from " + str(addr) + " has been established.")
         m = c.recv(1024).decode() 
-        
-        print("Request:\t", str(m))
 
         g = {
             "host" : clients[0].address,
             "host_id" : clients[0].ID,
         }
+
+        print("Connection from " + str(addr) + " has been established.")
+        print("Host", clients[0].client)
+        print("Request:\t", str(m))
+        
+        if(m == "quit" and c == clients[0].client):
+            break;
 
         if(str(m) == "get"):
             clients[0].send(g)
