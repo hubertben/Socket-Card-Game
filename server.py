@@ -35,6 +35,7 @@ if __name__ == "__main__":
     host = socket.gethostname()
     s.bind((host, port))  
     s.listen(5)  
+    m = ""
 
     print("Server {} listening @ {}:{}".format(s, host, port))
 
