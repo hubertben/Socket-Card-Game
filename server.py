@@ -54,9 +54,9 @@ if __name__ == "__main__":
         print("Message from client: " + str(m))
 
         c.send("Message from server: Received message from client: " + str(m))
-
-        if(str(m) == "quit"):
-            c.close()
+        c.close()
+        
+        if(str(m) == "quit"): 
             break
 
     s.close()
