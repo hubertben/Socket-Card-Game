@@ -71,20 +71,25 @@ if __name__ == "__main__":
         
         
         if(m == "server_id"):
-            print("First Time Connection from " + str(c) + ":" + str(addr) + " has been established.")
             check = checkClients(addr)
             if(check == False):
+                print("First Time Connection from " + str(addr[0]) + " has been established.")
                 addClient(c, addr, client_id)
                 client_id += 1
                 print("Client Added")
+            else:
+                check.send("Request for \"server_id\" denied.")
+                c.close()
 
-        print("Message from client: " + str(m))
+        else:
+            
+            print("Message from client: " + str(m))
 
-        c.send("Message from server: Received message from client: " + str(m))
-        c.close()
+            c.send("Message from server: Received message from client: " + str(m))
+            c.close()
 
-        if(str(m) == "quit"): 
-            break
+            if(str(m) == "quit"): 
+                break
 
     s.close()
 

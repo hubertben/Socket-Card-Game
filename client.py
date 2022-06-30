@@ -29,7 +29,7 @@ def getServerID():
     m = "server_id"
     s.send(m.encode())
     r = s.recv(1024).decode()
-    server_id = int(r[1])
+    server_id = int(r[1:])
     print("Server ID: " + str(server_id))
     s.close()
     
@@ -67,25 +67,5 @@ if __name__ == "__main__":
     getServerID()
 
     kinter.mainloop()
-
-    
-
-
-
-
-
-    
-
-        
-
-        
-        
-
-        
-        
-
-       
-        
-        
 
     
