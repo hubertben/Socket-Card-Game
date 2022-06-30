@@ -3,7 +3,6 @@ import socket
 clients = []
 from threading import Thread
 
-#c.sendall(str(client_id).encode())
 
 
 class ClientHandler:
@@ -54,6 +53,10 @@ def command(c, message):
 
     if(message[0] == "kill"):
         exit()
+
+    if(message[0] == "sendall"):
+        sendAll(message[1])
+        return
 
    
 
