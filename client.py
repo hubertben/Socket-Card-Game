@@ -21,6 +21,10 @@ def send_message(m):
     s.send(m.encode())
 
     r = s.recv(1024).decode()
+
+    if r == "kill":
+        exit()
+
     label.config(text=r)
     s.close()
 

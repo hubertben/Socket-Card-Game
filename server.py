@@ -19,7 +19,7 @@ class ClientHandler:
         self.client.send(str(data).encode())
 
     def close(self):
-        self.client.close()
+        self.send("kill")
 
     def __str__(self):
         return "Client: " + str(self.ID) + " " + str(self.address)
@@ -43,9 +43,10 @@ def checkClients(addr):
 def addClient(client, address, ID):
     c = ClientHandler(client, address, ID)
     clients.append(c)
+    c.has_id = True
+
     i = "$" + str(ID)
     client.send(str(i))
-    c.has_id = True
     print("Client " + str(ID) + " connected")
 
 
@@ -63,7 +64,7 @@ def command(c, message):
     if(message[0] == "closeall"):
         closeAll()
 
-    if(message[0] == "dropServer"):
+    if(message[0] == "kill"):
         closeAll()
         exit()
 
@@ -91,6 +92,7 @@ if __name__ == "__main__":
 
         if m[0] == "/":
             command(checkClients(addr), m)
+            c.close()
 
         elif(m == "server_id"):
             check = checkClients(addr)
