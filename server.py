@@ -77,14 +77,13 @@ if __name__ == "__main__":
 
     while True:
         
-         
         m = c.recv(1024).decode()
 
         if(not m):
             c.close()
             clients.remove(checkClients(addr))
             print("Client " + str(addr) + " disconnected")
-            continue
+            break
 
         print("Message from client: " + str(m))
 
