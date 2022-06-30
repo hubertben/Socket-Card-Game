@@ -57,13 +57,13 @@ if __name__ == "__main__":
         print("Request:\t", str(m))
         
         if(str(m) == "quit" and addr[0] == clients[0].address[0]):
-            closeAll();
-            break;
+            closeAll()
+            break
 
         if(str(m) == "get"):
             clients[0].send(g)
             print("Response:\t", str(g))
-            clients[0].close()
+            continue
             
 
         
