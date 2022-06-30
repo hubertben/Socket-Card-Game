@@ -25,18 +25,46 @@ def send_message(m):
     s.close()
 
         
-def getServerID():
+def getServerID(host, port):
+    print("Getting Server ID")
+    
     s = socket.socket()
+    print("Connecting to server")
+
     s.connect((host, port))
+    print("Connected to server")
+
     m = "server_id"
+    
+    print("Sending")
     s.send(m.encode())
+
+    print("Receiving")
     r = s.recv(1024).decode()
+
+    print("Received: " + r)
     server_id = int(r[1:])
+
     print("Server ID: " + str(server_id))
     s.close()
     
 
 if __name__ == "__main__":
+
+    port = int(input("Enter port number: "))
+
+    if(port < 1024 or port > 65535):
+        port = 19487
+
+
+    num = int(input("Enter host number: "))
+    host = "elnux" + str(num) + ".cs.umass.edu"
+    server_id = -1
+
+    print("Server listening @ {}:{}".format(host, port))
+    print("Sending request for \"server_id\"")
+    getServerID(host, port)
+
 
     kinter = tk.Tk()
     kinter.title("Client")
@@ -55,18 +83,6 @@ if __name__ == "__main__":
     label = tk.Label(kinter, text="", width=50)
     label.place(x=50, y=200)
 
-
-    port = int(input("Enter port number: "))
-
-    if(port < 1024 or port > 65535):
-        port = 19487
-
-
-    num = int(input("Enter host number: "))
-    host = "elnux" + str(num) + ".cs.umass.edu"
-    server_id = -1
-
-    getServerID()
 
     kinter.mainloop()
 

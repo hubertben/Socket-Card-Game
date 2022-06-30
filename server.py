@@ -62,7 +62,7 @@ if __name__ == "__main__":
     m = ""
     client_id = 0
 
-    print("Server {} listening @ {}:{}".format(s, host, port))
+    print("Server listening @ {}:{}".format(host, port))
 
     while True:
         
