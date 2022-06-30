@@ -63,7 +63,8 @@ def command(c, message):
     if(message[0] == "closeall"):
         closeAll()
 
-    if(message[0] == "exit"):
+    if(message[0] == "dropServer"):
+        closeAll()
         exit()
 
    
