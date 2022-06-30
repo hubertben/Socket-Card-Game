@@ -39,8 +39,8 @@ def getServerID(host, port):
     print("Sending")
     s.send(m.encode())
 
-    print("Receiving " + s.recv(1024))
-    r = s.recv(1024).decode()
+    print("Receiving " + str(s.recv(1024).decode()))
+    r = str(s.recv(1024)) 
 
     print("Received: " + r)
     server_id = int(r[1:])
