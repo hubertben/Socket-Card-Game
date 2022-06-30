@@ -18,9 +18,6 @@ class ClientHandler:
     def send(self, data):
         self.client.send(str(data).encode())
 
-    def close(self):
-        self.send("kill")
-
     def __str__(self):
         return "Client: " + str(self.ID) + " " + str(self.address)
 
@@ -30,13 +27,14 @@ def sendAll(data):
         client.send(data)
 
 def closeAll():
-    for client in clients:
-        client.close()
+    for c in clients:
+        c.send("kill")
+        c.client.close()
 
 def checkClients(addr):
-    for client in clients:
-        if(client.address[0] == addr[0]):
-            return client
+    for c in clients:
+        if(c.address[0] == addr[0]):
+            return c
     return False
 
 

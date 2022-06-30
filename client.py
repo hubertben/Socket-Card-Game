@@ -21,7 +21,7 @@ def send_message(m):
     s.send(m.encode())
 
     r = s.recv(1024).decode()
-
+    print("Message from server: " + str(r))
     if r == "kill":
         exit()
 
