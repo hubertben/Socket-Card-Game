@@ -67,17 +67,12 @@ if __name__ == "__main__":
         
         c, addr = s.accept()  
         print("Connection from " + str(c) + ":" + str(addr) + " has been established.")
+
+        m = c.recv(1024).decode()
         
         if(not checkClients(c)):
             addClient(c, addr, client_id)
             print("Client Added")
-
-        m = c.recv(1024).decode()
-
-        if(m == "Server ID Assigned"):
-            clients[client_id - 1].has_id = True
-            print("Client " + str(client_id) + " has been assigned ID " + str(client_id))
-
 
         print("Message from client: " + str(m))
 
