@@ -51,8 +51,8 @@ if __name__ == "__main__":
     host = "elnux" + str(num) + ".cs.umass.edu"
     server_id = -1
 
-    print("Server listening @ {}:{}".format(host, port))
-    getServerID(host, port)
+    #print("Server listening @ {}:{}".format(host, port))
+    #getServerID(host, port)
 
 
     kinter = tk.Tk()

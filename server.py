@@ -83,31 +83,33 @@ if __name__ == "__main__":
 
         print("Message from client: " + str(m))
 
-        if m[0] == "/":
-            command(checkClients(addr), m)
+        c.send(str("761").encode())
+
+        # if m[0] == "/":
+        #     command(checkClients(addr), m)
             
 
-        elif(m == "server_id"):
-            check = checkClients(addr)
-            print("Check: " + str(check))
-            if(check == False):
-                print("First Time Connection from " + str(addr[0]) + " has been established.")
-                addClient(c, addr, client_id)
-                client_id += 1
-                print("Client Added")
-            else:
-                m = ("$" + str(check.ID)).encode()  
-                print("Sending: " + str(m))
-                c.send(m)
+        # elif(m == "server_id"):
+        #     check = checkClients(addr)
+        #     print("Check: " + str(check))
+        #     if(check == False):
+        #         print("First Time Connection from " + str(addr[0]) + " has been established.")
+        #         addClient(c, addr, client_id)
+        #         client_id += 1
+        #         print("Client Added")
+        #     else:
+        #         m = ("$" + str(check.ID)).encode()  
+        #         print("Sending: " + str(m))
+        #         c.send(m)
                 
 
-        else:
+        # else:
 
-            c.send(("Message from server: Received message from client: " + str(m)).encode())
+        #     c.send(("Message from server: Received message from client: " + str(m)).encode())
             
 
-            if(str(m) == "quit"): 
-                break
+        #     if(str(m) == "quit"): 
+        #         break
 
     s.close()
 
