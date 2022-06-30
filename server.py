@@ -3,6 +3,7 @@ import socket
 clients = []
 
 #c.sendall(str(client_id).encode())
+client_id = 0
 
 class ClientHandler:
 
@@ -11,11 +12,16 @@ class ClientHandler:
         self.address = address
         self.ID = ID
 
+        self.has_id = False
+
     def send(self, data):
         self.client.send(str(data).encode())
 
     def close(self):
         self.client.close()
+
+    def __str__(self):
+        return "Client: " + str(self.ID) + " " + str(self.address)
 
 
 def sendAll(data):
@@ -25,6 +31,21 @@ def sendAll(data):
 def closeAll():
     for client in clients:
         client.close()
+
+def checkClients(c):
+    for client in clients:
+        if(client.address == c.address):
+            return True
+    return False
+
+
+def addClient(client, address, ID):
+    client_id += 1
+    c = ClientHandler(client, address, ID)
+    clients.append(c)
+    c.send(["Client ID", str(client_id)])
+    c.has_id = True
+    print(c)
 
 
 if __name__ == "__main__":
@@ -46,21 +67,84 @@ if __name__ == "__main__":
         
         c, addr = s.accept()  
         print("Connection from " + str(c) + ":" + str(addr) + " has been established.")
-
-        client_id = len(clients) + 1
-        clients.append(ClientHandler(c, addr, client_id))
+        
+        if(not checkClients(c)):
+            addClient(c, addr, client_id)
+            print("Client Added")
 
         m = c.recv(1024).decode()
+
+        if(m == "Server ID Assigned"):
+            clients[client_id - 1].has_id = True
+            print("Client " + str(client_id) + " has been assigned ID " + str(client_id))
+
+
         print("Message from client: " + str(m))
 
         c.send("Message from server: Received message from client: " + str(m))
         c.close()
-        
+
         if(str(m) == "quit"): 
             break
 
     s.close()
 
         
-       
-            
+
+
+class Card:
+    def __init__(self, suit, value):
+        self.suit = suit
+        self.value = value
+
+    def __str__(self):
+        return self.value + " of " + self.suit
+
+
+
+class Player:
+    def __init__(self, name, color, handler):
+        self.name = name
+        self.color = color
+        self.hand = []
+
+        self.handler = handler
+
+    def __str__(self):
+        return self.name + " has " + str(len(self.hand)) + " cards."
+
+    def addCard(self, card):
+        self.hand.append(card)
+
+    def removeCard(self, card):
+        self.hand.remove(card)
+
+
+
+class BlackJack:
+
+    def __init__(self):
+        self.deck = []
+        self.players = []
+        self.state = {}
+
+    def updateState(self):
+        self.state["players"] = self.players
+        
+
+    def generateCards(self):
+        suits = ["Hearts", "Diamonds", "Clubs", "Spades"]
+        values = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"]
+        for suit in suits:
+            for value in values:
+                self.deck.append(Card(suit, value))
+
+    def shuffle(self):
+        import random
+        random.shuffle(self.deck)
+
+    
+
+
+
+    
