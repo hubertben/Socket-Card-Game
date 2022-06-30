@@ -6,10 +6,11 @@ if __name__ == "__main__":
     port = int(input("Enter port number: "))
    
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    host = socket.gethostname() 
+    host = socket.gethostname()
     s.bind((host, port))  
     s.listen(5)  
-    print("Server listening @ {}:{}".format(host, port))
+
+    print("Server {} listening @ {}:{}".format(s, host, port))
 
     while True:
         c, addr = s.accept()  
