@@ -50,8 +50,8 @@ if __name__ == "__main__":
         m = c.recv(1024).decode() 
 
         g = {
-            "host" : c.address,
-            "host_id" : c.ID,
+            "host" : c,
+            "host_id" : addr,
         }
 
         print("Request:\t", str(m))
