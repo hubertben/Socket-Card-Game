@@ -21,6 +21,7 @@ if __name__ == "__main__":
         print("Response:\t", str(r))
 
         if(str(r) == "quit"):
+            s.close()
             break
 
-    s.close()
+    

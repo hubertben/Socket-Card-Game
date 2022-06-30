@@ -39,7 +39,7 @@ if __name__ == "__main__":
 
     print("Server {} listening @ {}:{}".format(s, host, port))
 
-    while str(m) != "quit":
+    while True:
         
         c, addr = s.accept()  
         print("Connection from " + str(c) + ":" + str(addr) + " has been established.")
@@ -48,6 +48,9 @@ if __name__ == "__main__":
         clients.append(ClientHandler(c, addr, client_id))
 
         m = c.recv(1024).decode() 
+
+        if(str(m) == "quit"):
+            break
 
         g = {
             "host" : c,
@@ -60,6 +63,7 @@ if __name__ == "__main__":
             c.send(str(g))
             print("Response:\t", str(g))
             continue
+
             
 
     sendAll("quit")
