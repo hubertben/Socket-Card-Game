@@ -32,9 +32,9 @@ def closeAll():
     for client in clients:
         client.close()
 
-def checkClients(c):
+def checkClients(addr):
     for client in clients:
-        if(client.address == c.address):
+        if(client.address == addr):
             return True
     return False
 
@@ -71,7 +71,7 @@ if __name__ == "__main__":
 
         m = c.recv(1024).decode()
         
-        if(not checkClients(c)):
+        if(not checkClients(addr)):
             addClient(c, addr, client_id)
             client_id += 1
             print("Client Added")
