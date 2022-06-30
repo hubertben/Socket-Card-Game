@@ -44,8 +44,8 @@ if __name__ == "__main__":
         c, addr = s.accept()  
         print("Connection from " + str(c) + ":" + str(addr) + " has been established.")
 
-        # client_id = len(clients) + 1
-        # clients.append(ClientHandler(c, addr, client_id))
+        client_id = len(clients) + 1
+        clients.append(ClientHandler(c, addr, client_id))
 
         m = c.recv(1024).decode() 
 
@@ -57,11 +57,12 @@ if __name__ == "__main__":
         print("Request:\t", str(m))
 
         if(str(m) == "get"):
-            c.send(g)
+            c.send(str(g))
             print("Response:\t", str(g))
             continue
             
 
     sendAll("quit")
+    closeAll()
         
 
