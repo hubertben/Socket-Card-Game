@@ -14,8 +14,6 @@ class ClientHandler:
     def send(self, data):
         self.client.send(str(data).encode())
 
-
-
     def close(self):
         self.client.close()
 
@@ -51,6 +49,8 @@ if __name__ == "__main__":
 
         m = c.recv(1024).decode()
         print("Message from client: " + str(m))
+
+        c.send("Message from server: Received message from client: " + str(m))
 
         if(str(m) == "quit"):
             c.close()
