@@ -39,7 +39,7 @@ class ClientHandler:
         while True:
             data = client.port.recv(1024).decode()
 
-            print("[SERVER-LOG]: |" + str(data) + "|")
+            print("[SERVER-LOG]: [" + str(data) + "]")
 
             if not data:
                 break
@@ -53,6 +53,7 @@ class ClientHandler:
             print(data)
             state.append(data)
             client.send(state)
+
 
     
 
@@ -78,7 +79,7 @@ if __name__ == "__main__":
         port, addr = s.accept() 
 
         if(SHUTDOWN):
-            s.close()
+            print("Server shutting down...")
             break
 
         client = Client(port, addr)
@@ -86,10 +87,9 @@ if __name__ == "__main__":
 
         handler.add(client)
 
-        
-
-
-
+    s.close()
+    print("Server closed")
+    exit()
     
 
 
