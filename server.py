@@ -18,7 +18,7 @@ class Client:
         return "Client: " + str(self.port) + " | " + str(self.address)
 
     def send(self, message):
-        self.port.send(message.encode())
+        self.port.send(str(message).encode())
         
 
    
