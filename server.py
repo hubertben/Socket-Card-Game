@@ -42,7 +42,7 @@ class ClientHandler:
             print("[SERVER-LOG]: [" + str(data) + "]")
 
             if not data:
-                thread.interrupt_main()
+                Thread.interrupt_main()
 
             if data == "quit":
                 sys.exit()
