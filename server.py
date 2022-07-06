@@ -3,8 +3,6 @@ import socket
 from threading import Thread
 import random
 
-shutdown = False
-
 
 class Client:
 
@@ -46,11 +44,8 @@ class ClientHandler:
                 break
 
             if data == "quit":
-                shutdown = True
-                client.send(("Server shutting down...", shutdown))
-                break
+                exit()
 
-            print(data)
             state.append(data)
             client.send(state)
 
@@ -79,18 +74,14 @@ if __name__ == "__main__":
 
         port, addr = s.accept() 
 
-        if(shutdown):
-            print("Server shutting down...")
-            break
-
         client = Client(port, addr)
         print("Client connected: " + str(client))
 
         handler.add(client)
 
-    s.close()
-    print("Server closed")
-    exit()
+    # s.close()
+    # print("Server closed")
+    # exit()
     
 
 
