@@ -4,6 +4,18 @@ from threading import Thread
 import signal
 import os
 
+
+class GameState:
+
+
+    def __init__(self):
+        self.g = {}
+
+    def __str__(self):
+        return str(self.g)
+
+
+
 class Client:
 
     def __init__(self, port, address):
@@ -19,17 +31,17 @@ class Client:
         self.port.send(str(message).encode())
 
 
-state = []
-
+chatLog = []
 
 class ClientHandler:
 
     def __init__(self):
-        pass
+        self.clients = []
 
     def add(self, client):
         t = Thread(target=self.handle, args=(client,))
         t.start()
+        self.clients.append(client)
 
     def handle(self, client):
 
@@ -45,12 +57,18 @@ class ClientHandler:
             if data == "quit":
                 os.kill(os.getpid(), signal.SIGINT)
 
-            state.append(data)
-            client.send(state)
+            chatLog.append(data)
+            self.broadcast(chatLog)
+
+
+    def broadcast(self, message):
+        for client in self.clients:
+            client.send(message)
 
 
 s = None
 handler = ClientHandler()
+gameState = GameState()
 
 
 if __name__ == "__main__":
@@ -73,6 +91,7 @@ if __name__ == "__main__":
         print("Client connected: " + str(client))
 
         handler.add(client)
+
 
     # s.close()
     # print("Server closed")
