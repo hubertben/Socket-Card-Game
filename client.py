@@ -11,29 +11,24 @@ server_id = None
 s = None
 
 def send_message(m):
-    
-    if m == "quit":
-        exit() 
 
     if m == "":
         return
 
     s.send(m.encode())
     r = s.recv(1024).decode()
-    
+
     label.config(text=r)
+    print("[LOG]:", r)
+
+    if m == "quit":
+        exit() 
+    
+    
     
 
         
-def getServerID():
 
-    post = "server_id"
-    
-    s.send(post.encode())
-    r = s.recv(1024).decode()
-    server_id = int(r[1:])
-
-    print("Server ID: " + str(server_id))
 
     
 
@@ -49,7 +44,6 @@ if __name__ == "__main__":
     s.connect((host, port))
 
     print("Server listening @ {}:{}".format(host, port))
-    getServerID()
 
 
     kinter = tk.Tk()
@@ -74,3 +68,55 @@ if __name__ == "__main__":
     s.close()
 
     
+
+
+class Card:
+    def __init__(self, suit, value):
+        self.suit = suit
+        self.value = value
+
+    def __str__(self):
+        return self.value + " of " + self.suit
+
+
+
+class Player:
+    def __init__(self, name, color, handler):
+        self.name = name
+        self.color = color
+        self.hand = []
+
+        self.handler = handler
+
+    def __str__(self):
+        return self.name + " has " + str(len(self.hand)) + " cards."
+
+    def addCard(self, card):
+        self.hand.append(card)
+
+    def removeCard(self, card):
+        self.hand.remove(card)
+
+
+
+class BlackJack:
+
+    def __init__(self):
+        self.deck = []
+        self.players = []
+        self.state = {}
+
+    def updateState(self):
+        self.state["players"] = self.players
+        
+
+    def generateCards(self):
+        suits = ["Hearts", "Diamonds", "Clubs", "Spades"]
+        values = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"]
+        for suit in suits:
+            for value in values:
+                self.deck.append(Card(suit, value))
+
+    def shuffle(self):
+        import random
+        random.shuffle(self.deck)
