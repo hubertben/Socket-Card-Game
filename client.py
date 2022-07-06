@@ -21,7 +21,7 @@ def send_message(m):
     label.config(text=r)
     print("[LOG]:", r)
 
-    if m == "quit":
+    if m == "kill":
         exit() 
     
     

@@ -39,6 +39,8 @@ class ClientHandler:
         while True:
             data = client.port.recv(1024).decode()
 
+            print("[SERVER-LOG]: |" + str(data) + "|")
+
             if not data:
                 break
 
