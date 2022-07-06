@@ -8,17 +8,17 @@ SHUTDOWN = False
 
 class Client:
 
-    def __init__(self, socket, address):
-        self.socket = socket
+    def __init__(self, port, address):
+        self.port = port
         self.address = address
 
         self.has_id = False
 
     def __str__(self):
-        return "Client: " + str(self.socket) + " | " + str(self.address)
+        return "Client: " + str(self.port) + " | " + str(self.address)
 
     def send(self, message):
-        self.socket.send(message.encode())
+        self.port.send(message.encode())
         
 
    
@@ -37,7 +37,7 @@ class ClientHandler:
 
     def handle(self, client):
         while True:
-            data = client.socket.recv(1024).decode()
+            data = client.port.recv(1024).decode()
 
             if not data:
                 break
@@ -45,7 +45,7 @@ class ClientHandler:
             if data == "quit":
                 SHUTDOWN = True
                 client.send("Server shutting down...")
-                client.socket.close()
+                client.port.close()
                 break
 
             print(data)
@@ -73,9 +73,9 @@ if __name__ == "__main__":
 
     while True or SHUTDOWN:
 
-        socket, addr = s.accept() 
+        port, addr = s.accept() 
 
-        client = Client(addr[0], addr[1])
+        client = Client(port, addr)
         print("Client connected: " + str(client))
 
         handler.add(client)
