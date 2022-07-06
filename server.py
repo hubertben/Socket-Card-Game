@@ -36,6 +36,7 @@ class ClientHandler:
         t.start()
 
     def handle(self, client):
+
         while True:
             data = client.port.recv(1024).decode()
 
@@ -46,14 +47,13 @@ class ClientHandler:
 
             if data == "quit":
                 shutdown = True
+                client.send(("Server shutting down...", shutdown))
                 break
 
             print(data)
             state.append(data)
             client.send(state)
 
-        
-        client.send("Server shutting down...", shutdown)
         client.port.close()
 
     
