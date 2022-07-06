@@ -73,17 +73,18 @@ if __name__ == "__main__":
 
     print("Server listening @ {}:{}".format(host, port))
 
-    while True or SHUTDOWN:
+    while True:
 
         port, addr = s.accept() 
+
+        if(SHUTDOWN):
+            s.close()
+            break
 
         client = Client(port, addr)
         print("Client connected: " + str(client))
 
         handler.add(client)
-
-
-    s.close()
 
         
 
