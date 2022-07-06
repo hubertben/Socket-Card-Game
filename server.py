@@ -1,9 +1,8 @@
 
 import socket
-from threading import Thread, thread
-import sys
-import random
-
+from threading import Thread
+import signal
+import os
 
 class Client:
 
@@ -18,20 +17,18 @@ class Client:
 
     def send(self, message):
         self.port.send(str(message).encode())
-        
 
-   
 
 state = []
 
-class ClientHandler:
 
+class ClientHandler:
 
     def __init__(self):
         pass
-        
+
     def add(self, client):
-        t = Thread(target = self.handle, args = (client,))
+        t = Thread(target=self.handle, args=(client,))
         t.start()
 
     def handle(self, client):
@@ -46,15 +43,10 @@ class ClientHandler:
                 continue
 
             if data == "quit":
-                thread.interrupt_main()
-                sys.exit()
+                os.kill(os.getpid(), signal.SIGINT)
 
             state.append(data)
             client.send(state)
-
-        
-
-    
 
 
 s = None
@@ -62,20 +54,20 @@ handler = ClientHandler()
 
 
 if __name__ == "__main__":
-    
+
     port = int(input("Enter port number: "))
     host = socket.gethostname()
 
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-    s.bind((host, port))  
+    s.bind((host, port))
     s.listen(5)
 
     print("Server listening @ {}:{}".format(host, port))
 
     while True:
 
-        port, addr = s.accept() 
+        port, addr = s.accept()
 
         client = Client(port, addr)
         print("Client connected: " + str(client))
@@ -85,8 +77,3 @@ if __name__ == "__main__":
     # s.close()
     # print("Server closed")
     # exit()
-    
-
-
-
-    
