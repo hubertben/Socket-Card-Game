@@ -1,6 +1,8 @@
 
+from concurrent.futures import thread
 import socket
 from threading import Thread
+import sys
 import random
 
 
@@ -41,10 +43,10 @@ class ClientHandler:
             print("[SERVER-LOG]: [" + str(data) + "]")
 
             if not data:
-                break
+                thread.interrupt_main()
 
             if data == "quit":
-                exit()
+                sys.exit()
 
             state.append(data)
             client.send(state)
