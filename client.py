@@ -14,15 +14,17 @@ def send_message(m):
 
     if m == "":
         return
+        
+    try:
+        s.send(m.encode())
+        r = s.recv(1024).decode()
+        label.config(text = r)
+    except:
+        label.config(text = "Error")
+        print("[ERROR]")
+        return
 
-    s.send(m.encode())
-    r = s.recv(1024).decode()
-
-    label.config(text=r)
-    print("[LOG]:", r)
-
-    if m == "kill":
-        exit() 
+   
     
     
     
