@@ -1,6 +1,6 @@
 
 import socket
-from threading import Thread
+from threading import Thread, thread
 import sys
 import random
 
@@ -46,7 +46,7 @@ class ClientHandler:
                 continue
 
             if data == "quit":
-                Thread.interrupt_main()
+                thread.interrupt_main()
                 sys.exit()
 
             state.append(data)
