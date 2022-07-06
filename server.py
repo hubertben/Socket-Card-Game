@@ -19,6 +19,7 @@ class Client:
 
     def send(self, message):
         self.socket.send(message.encode())
+        
 
    
 
@@ -36,7 +37,7 @@ class ClientHandler:
 
     def handle(self, client):
         while True:
-            data = client.recv(1024).decode()
+            data = client.socket.recv(1024).decode()
 
             if not data:
                 break
@@ -44,7 +45,7 @@ class ClientHandler:
             if data == "quit":
                 SHUTDOWN = True
                 client.send("Server shutting down...")
-                client.close()
+                client.socket.close()
                 break
 
             print(data)
@@ -54,19 +55,19 @@ class ClientHandler:
     
 
 
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s = None
 handler = ClientHandler()
 
 
 if __name__ == "__main__":
     
     port = int(input("Enter port number: "))
-   
     host = socket.gethostname()
+
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
     s.bind((host, port))  
-    s.listen(5)  
-    
-    m = ""
+    s.listen(5)
 
     print("Server listening @ {}:{}".format(host, port))
 

@@ -34,11 +34,10 @@ def send_message(m):
 
 if __name__ == "__main__":
 
-    port = int(input("Enter port number: "))
+    port = int(input("Enter port number (default:19487): "))
 
-    num = int(input("Enter host number: "))
+    num = int(input("Enter host number (1-7): "))
     host = "elnux" + str(num) + ".cs.umass.edu"
-    server_id = -1
 
     s = socket.socket()
     s.connect((host, port))
