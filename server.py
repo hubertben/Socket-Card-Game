@@ -42,15 +42,17 @@ class ClientHandler:
             print("[SERVER-LOG]: [" + str(data) + "]")
 
             if not data:
-                Thread.interrupt_main()
+                client.port.close()
+                continue
 
             if data == "quit":
+                Thread.interrupt_main()
                 sys.exit()
 
             state.append(data)
             client.send(state)
 
-        client.port.close()
+        
 
     
 
